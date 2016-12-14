@@ -1,0 +1,80 @@
+public class taintanalysis.inter.Test extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        taintanalysis.inter.Test this;
+
+        this := @this: taintanalysis.inter.Test;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    int func(int)
+    {
+        taintanalysis.inter.Test this;
+        int x, temp;
+        byte temp;
+
+        this := @this: taintanalysis.inter.Test;
+        x := @parameter0: int;
+        temp = x;
+        temp = 100;
+        return temp;
+    }
+
+    int foo(int)
+    {
+        taintanalysis.inter.Test this;
+        int play, beta, alpha, $i0, gamma;
+        byte gamma;
+
+        this := @this: taintanalysis.inter.Test;
+        play := @parameter0: int;
+        beta = play;
+        $i0 = virtualinvoke this.<taintanalysis.inter.Test: int func(int)>(1);
+        alpha = beta + $i0;
+        gamma = 3;
+        if alpha != 2 goto label0;
+
+        return gamma;
+
+     label0:
+        $i0 = virtualinvoke this.<taintanalysis.inter.Test: int func(int)>(beta);
+        gamma = beta + $i0;
+        return gamma;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] args;
+        int play, x, y;
+        taintanalysis.inter.Test s, $r1;
+        boolean y;
+        java.lang.String $r0;
+        java.io.PrintStream $r2;
+
+        args := @parameter0: java.lang.String[];
+        $r0 = args[0];
+        play = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r0);
+        $r1 = new taintanalysis.inter.Test;
+        specialinvoke $r1.<taintanalysis.inter.Test: void <init>()>();
+        s = $r1;
+        x = 0;
+        y = 0;
+        if play <= 0 goto label0;
+
+        x = virtualinvoke s.<taintanalysis.inter.Test: int foo(int)>(play);
+        goto label1;
+
+     label0:
+        y = virtualinvoke s.<taintanalysis.inter.Test: int foo(int)>(4);
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(y);
+
+     label1:
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(x);
+        return;
+    }
+}

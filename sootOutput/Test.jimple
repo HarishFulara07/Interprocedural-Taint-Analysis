@@ -1,0 +1,78 @@
+public class Test extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        Test this;
+
+        this := @this: Test;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public void foo(int, int)
+    {
+        Test this;
+        int x, y, a, $i0;
+        byte b;
+
+        this := @this: Test;
+        x := @parameter0: int;
+        y := @parameter1: int;
+        $i0 = x + y;
+        a = $i0 - 2;
+        b = 20;
+        virtualinvoke this.<Test: int bar1(int,int)>(a, b);
+        return;
+    }
+
+    public int bar1(int, int)
+    {
+        Test this;
+        int x, y, a, c, $i0, $i1, b;
+        byte b;
+
+        this := @this: Test;
+        x := @parameter0: int;
+        y := @parameter1: int;
+        a = x * y;
+        b = 10;
+        $i0 = staticinvoke <Test: int bar2(int,int)>(b, b);
+        $i1 = b * 20;
+        $i1 = staticinvoke <Test: int bar3(int)>($i1);
+        c = $i0 + $i1;
+        $i0 = staticinvoke <Test: int bar2(int,int)>(x, y);
+        if $i0 <= 10 goto label0;
+
+        return c;
+
+     label0:
+        $i0 = x + y;
+        b = $i0 - a;
+        $i0 = staticinvoke <Test: int bar2(int,int)>(b, c);
+        $i1 = staticinvoke <Test: int bar3(int)>(a);
+        $i0 = $i0 + $i1;
+        return $i0;
+    }
+
+    public static int bar2(int, int)
+    {
+        int x, y, a, $i0;
+
+        x := @parameter0: int;
+        y := @parameter1: int;
+        a = x * y;
+        $i0 = staticinvoke <Test: int bar3(int)>(a);
+        return $i0;
+    }
+
+    public static int bar3(int)
+    {
+        int x, a, $i0;
+
+        x := @parameter0: int;
+        $i0 = x * x;
+        a = $i0 * x;
+        return a;
+    }
+}

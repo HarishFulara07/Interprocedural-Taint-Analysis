@@ -1,0 +1,100 @@
+public class taintanalysis.intra.Test extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        taintanalysis.intra.Test this;
+
+        this := @this: taintanalysis.intra.Test;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    int func(int)
+    {
+        taintanalysis.intra.Test this;
+        int x, $i0;
+        byte temp;
+
+        this := @this: taintanalysis.intra.Test;
+        x := @parameter0: int;
+        temp = 100;
+        $i0 = x + temp;
+        return $i0;
+    }
+
+    int swappingAgain(int)
+    {
+        taintanalysis.intra.Test this;
+        int x;
+
+        this := @this: taintanalysis.intra.Test;
+        x := @parameter0: int;
+        if x <= 0 goto label0;
+
+        return 2;
+
+     label0:
+        virtualinvoke this.<taintanalysis.intra.Test: int func(int)>(x);
+        return 10;
+    }
+
+    int foo(int)
+    {
+        taintanalysis.intra.Test this;
+        int play, alpha, gamma, $i0, beta, $i1;
+        byte beta;
+
+        this := @this: taintanalysis.intra.Test;
+        play := @parameter0: int;
+        beta = 0;
+        $i0 = virtualinvoke this.<taintanalysis.intra.Test: int func(int)>(1);
+        alpha = beta + $i0;
+        beta = virtualinvoke this.<taintanalysis.intra.Test: int swappingAgain(int)>(alpha);
+        gamma = 0;
+        goto label1;
+
+     label0:
+        gamma = virtualinvoke this.<taintanalysis.intra.Test: int func(int)>(play);
+        $i0 = virtualinvoke this.<taintanalysis.intra.Test: int swappingAgain(int)>(gamma);
+        beta = beta - $i0;
+
+     label1:
+        if beta > 3 goto label0;
+
+        $i1 = beta + gamma;
+        return $i1;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] args;
+        int play, x, y;
+        taintanalysis.intra.Test s, $r1;
+        java.lang.String $r0;
+        java.io.PrintStream $r2;
+
+        args := @parameter0: java.lang.String[];
+        $r0 = args[0];
+        play = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r0);
+        $r1 = new taintanalysis.intra.Test;
+        specialinvoke $r1.<taintanalysis.intra.Test: void <init>()>();
+        s = $r1;
+        $r0 = args[1];
+        x = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r0);
+        if play <= 0 goto label0;
+
+        x = virtualinvoke s.<taintanalysis.intra.Test: int foo(int)>(play);
+        goto label1;
+
+     label0:
+        y = virtualinvoke s.<taintanalysis.intra.Test: int swappingAgain(int)>(play);
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(y);
+
+     label1:
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(x);
+        return;
+    }
+}

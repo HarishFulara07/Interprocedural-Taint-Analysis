@@ -1,0 +1,98 @@
+public class taintanalysis.intra.Sample extends java.lang.Object
+{
+
+    public void <init>()
+    {
+        taintanalysis.intra.Sample this;
+
+        this := @this: taintanalysis.intra.Sample;
+        specialinvoke this.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    int factorialOne(int)
+    {
+        taintanalysis.intra.Sample this;
+        int x;
+
+        this := @this: taintanalysis.intra.Sample;
+        x := @parameter0: int;
+        return 1;
+    }
+
+    int factorial(int)
+    {
+        taintanalysis.intra.Sample this;
+        int y, fact, i;
+
+        this := @this: taintanalysis.intra.Sample;
+        y := @parameter0: int;
+        fact = virtualinvoke this.<taintanalysis.intra.Sample: int factorialOne(int)>(y);
+        fact = fact * y;
+        i = 2;
+        goto label1;
+
+     label0:
+        fact = fact * i;
+        i = i + 1;
+
+     label1:
+        if i < y goto label0;
+
+        return fact;
+    }
+
+    int numPermutations(int, int)
+    {
+        taintanalysis.intra.Sample this;
+        int n, k, top, bottom, $i0;
+
+        this := @this: taintanalysis.intra.Sample;
+        n := @parameter0: int;
+        k := @parameter1: int;
+        top = virtualinvoke this.<taintanalysis.intra.Sample: int factorial(int)>(n);
+        bottom = virtualinvoke this.<taintanalysis.intra.Sample: int factorial(int)>(k);
+        $i0 = top / bottom;
+        return $i0;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] args;
+        int n, k, res;
+        taintanalysis.intra.Sample f, $r1;
+        java.lang.String $r0;
+        java.io.PrintStream $r2;
+
+        args := @parameter0: java.lang.String[];
+        $r0 = args[0];
+        n = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r0);
+        $r0 = args[1];
+        k = staticinvoke <java.lang.Integer: int parseInt(java.lang.String)>($r0);
+        $r1 = new taintanalysis.intra.Sample;
+        specialinvoke $r1.<taintanalysis.intra.Sample: void <init>()>();
+        f = $r1;
+        if n <= k goto label0;
+
+        res = virtualinvoke f.<taintanalysis.intra.Sample: int numPermutations(int,int)>(n, k);
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(res);
+        goto label2;
+
+     label0:
+        if n != k goto label1;
+
+        res = virtualinvoke f.<taintanalysis.intra.Sample: int numPermutations(int,int)>(n, 2);
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(res);
+        goto label2;
+
+     label1:
+        res = virtualinvoke f.<taintanalysis.intra.Sample: int numPermutations(int,int)>(10, 2);
+        $r2 = <java.lang.System: java.io.PrintStream out>;
+        virtualinvoke $r2.<java.io.PrintStream: void println(int)>(res);
+
+     label2:
+        return;
+    }
+}
